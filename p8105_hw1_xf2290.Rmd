@@ -36,13 +36,31 @@ ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
 ggsave("temp_plot.png")
 ```
 
+Problem 2
 ```{r}
 df <- tibble(
-  norm_sample = rnorm(10),                          # numeric
-  if_positive = rnorm(10) > 0,                      # logical vector
-  char_vec    = sample(letters[1:3], 10, replace=TRUE), # character vector
-  fact_vec    = factor(sample(c("low","med","high"), 10, replace=TRUE)) # factor vecotr
+  norm_sample = rnorm(10),                                  # numeric
+  if_positive = rnorm(10) > 0,                              # logical vector
+  char_vec  = sample(letters[1:3], 10, replace=TRUE),     
+# character vector
+  fact_vec = factor(sample(c("low","med","high"), 10, replace=TRUE)) # factor vector
 )
 ```
+```{r}
+# Numeric variable
+mean(df %>% pull(norm_sample))
 
+# Logical variable
+mean(df %>% pull(if_positive))
+
+# Character variable
+mean(df %>% pull(char_vec))
+
+# Factor variable
+mean(df %>% pull(fact_vec))
+```
+For Character variables, it fails, because we cannot average the characters.
+For Factor variable, it fail, because we need conversion before calculate it.
+For Numeric variable, it works.
+For Logical variable, it works, because 'true' is treated as 1 and 'false' is treated as 0. 
 
