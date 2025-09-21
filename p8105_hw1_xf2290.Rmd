@@ -2,13 +2,14 @@
 title: "p8105_hw1_xf2290"
 author: "Xiwei Fu"
 output: github_document
-date: "2025-09-21"
+date: "2025-09-20"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Problem 1
 ```{r}
 library(moderndive)
 library(ggplot2) 
@@ -60,7 +61,15 @@ mean(df %>% pull(char_vec))
 mean(df %>% pull(fact_vec))
 ```
 For Character variables, it fails, because we cannot average the characters.
-For Factor variable, it fail, because we need conversion before calculate it.
+For Factor variable, it fails, because we need conversion before calculate it.
 For Numeric variable, it works.
 For Logical variable, it works, because 'true' is treated as 1 and 'false' is treated as 0. 
-
+```{r}
+as.numeric(df %>% pull(if_positive))
+as.numeric(df %>% pull(char_vec))
+as.numeric(df %>% pull(fact_vec))
+```
+This help explain what happens when I try to take the mean.
+For Logical variable, it shows me 0 and 1.
+For Character variable, it shows NA since letters cannot be coerced to numbers.
+For Factor variable, it returns the integer codes for the factor levels, it means we can calculate the mean for it after conversion.
